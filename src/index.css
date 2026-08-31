@@ -1,0 +1,251 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --surface: #ffffff;
+    --surface-subtle: #f7f8fa;
+    --text-strong: #12161d;
+    --text-base: #454f5d;
+    --text-muted: #5b6573;
+    --border: #e6e8ec;
+    --border-strong: #d4d9df;
+  }
+
+  .dark {
+    --surface: #0a0d12;
+    --surface-subtle: #12161d;
+    --text-strong: #f6f7f8;
+    --text-base: #aab2bd;
+    --text-muted: #7c8593;
+    --border: #1f2530;
+    --border-strong: #2a313b;
+  }
+
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    font-feature-settings: 'ss01', 'cv11';
+    background-color: var(--surface);
+    color: var(--text-strong);
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  ::selection {
+    @apply bg-ember-500/90 text-white;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tightest;
+    text-wrap: balance;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--surface-subtle);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+    background-clip: content-box;
+  }
+}
+
+/* ---- Dark-mode utility overrides ----
+   ink-50..300 (light surfaces/borders) and text-ink-300..900 flip to dark.
+   bg-ink-900/950 and gradient stops from-/via-/to-ink-950 stay dark
+   (they're used for intentionally-dark sections and image overlays).
+   text-white stays white (always on cyan/dark backgrounds). */
+@layer base {
+  .dark .text-ink-900 { color: #f6f7f8; }
+  .dark .text-ink-800 { color: #eceef1; }
+  .dark .text-ink-700 { color: #d4d9df; }
+  .dark .text-ink-600 { color: #aab2bd; }
+  .dark .text-ink-500 { color: #7c8593; }
+  .dark .text-ink-400 { color: #6b7585; }
+  .dark .text-ink-300 { color: #4a5260; }
+  .dark .text-ink-200 { color: #3a4250; }
+  .dark .text-ink-100 { color: #2a313b; }
+  .dark .hover\:text-ink-900:hover { color: #f6f7f8; }
+
+  .dark .bg-ink-50 { background-color: #12161d; }
+  .dark .bg-ink-100 { background-color: #1a1f27; }
+  .dark .bg-ink-100\/60 { background-color: rgba(26, 31, 39, 0.6); }
+  .dark .bg-ink-100\/80 { background-color: rgba(26, 31, 39, 0.8); }
+  .dark .bg-ink-200 { background-color: #2a313b; }
+  .dark .bg-ink-300 { background-color: #3a4250; }
+  .dark .bg-ink-50\/95 { background-color: rgba(18, 22, 29, 0.95); }
+  .dark .hover\:bg-ink-50:hover { background-color: #1a1f27; }
+
+  .dark .border-ink-100 { border-color: #1f2530; }
+  .dark .border-ink-200 { border-color: #2a313b; }
+  .dark .border-ink-200\/70 { border-color: rgba(42, 49, 59, 0.7); }
+  .dark .border-ink-300 { border-color: #3a4250; }
+  .dark .border-ink-600 { border-color: #3a4250; }
+  .dark .hover\:border-ink-200:hover { border-color: #2a313b; }
+  .dark .hover\:border-ink-300:hover { border-color: #3a4250; }
+
+  /* Solid white surfaces → dark */
+  .dark .bg-white { background-color: var(--surface); }
+  .dark .hover\:bg-white:hover { background-color: #1a1f27; }
+  /* Translucent white surface elements (not image overlays) → dark */
+  .dark .bg-white\/40 { background-color: rgba(10, 13, 18, 0.5); }
+  .dark .bg-white\/60 { background-color: rgba(10, 13, 18, 0.7); }
+  .dark .bg-white\/70 { background-color: rgba(10, 13, 18, 0.8); }
+  .dark .bg-white\/80 { background-color: rgba(10, 13, 18, 0.85); }
+  .dark .hover\:bg-white\/10:hover { background-color: rgba(255, 255, 255, 0.08); }
+  .dark .hover\:bg-white\/25:hover { background-color: rgba(255, 255, 255, 0.15); }
+
+  /* Intentionally-dark sections slightly darker than page in dark mode */
+  .dark .bg-ink-950 { background-color: #060810; }
+
+  /* Light tint backgrounds → muted dark variants */
+  .dark .bg-steel-50 { background-color: rgba(6, 182, 212, 0.08); }
+  .dark .bg-ember-50 { background-color: rgba(6, 182, 212, 0.08); }
+  .dark .border-steel-200 { border-color: rgba(6, 182, 212, 0.25); }
+  .dark .border-ember-200 { border-color: rgba(6, 182, 212, 0.25); }
+  .dark .text-steel-600 { color: #22d3ee; }
+  .dark .text-ember-600 { color: #22d3ee; }
+  .dark .text-ember-700 { color: #67e8f9; }
+  .dark .text-ember-800 { color: #a5f3fc; }
+  .dark .hover\:bg-ember-50:hover { background-color: rgba(6, 182, 212, 0.12); }
+  .dark .hover\:text-ember-700:hover { color: #67e8f9; }
+}
+
+@layer components {
+  .container-px {
+    @apply px-5 sm:px-8 lg:px-12;
+  }
+
+  .container-wide {
+    @apply mx-auto w-full max-w-[1400px] container-px;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em];
+    color: var(--text-muted);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full text-sm font-semibold transition-all duration-300 ease-out-expo focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ember-400 disabled:cursor-not-allowed disabled:opacity-60;
+    --tw-ring-offset-color: var(--surface);
+  }
+
+  .btn-primary {
+    @apply btn bg-ember-500 px-6 py-3 text-white shadow-[0_8px_24px_-8px_rgba(6,182,212,0.6)] hover:bg-ember-600 hover:shadow-[0_12px_32px_-8px_rgba(6,182,212,0.75)] hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-ghost {
+    @apply btn px-6 py-3;
+    border: 1px solid var(--border-strong);
+    background: color-mix(in srgb, var(--surface) 70%, transparent);
+    color: var(--text-strong);
+  }
+  .btn-ghost:hover {
+    background: var(--surface);
+    transform: translateY(-1px);
+  }
+
+  .btn-dark {
+    @apply btn bg-ember-600 px-6 py-3 text-white hover:bg-ember-500 hover:-translate-y-0.5;
+  }
+
+  .glass {
+    @apply border backdrop-blur-xl;
+    background: color-mix(in srgb, var(--surface) 70%, transparent);
+    border-color: color-mix(in srgb, var(--border-strong) 60%, transparent);
+  }
+
+  .glass-dark {
+    @apply border border-white/10 backdrop-blur-xl;
+    background: rgba(10, 13, 18, 0.6);
+  }
+
+  .card {
+    @apply rounded-3xl;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02), 0 12px 40px -24px rgba(10, 13, 18, 0.18);
+  }
+  .dark .card {
+    box-shadow: 0 12px 40px -24px rgba(0, 0, 0, 0.6);
+  }
+
+  .section-eyebrow {
+    @apply eyebrow mb-4;
+  }
+
+  .h-display {
+    @apply text-4xl font-extrabold leading-[1.05] sm:text-5xl lg:text-6xl;
+  }
+
+  .h-section {
+    @apply text-3xl font-bold leading-[1.1] sm:text-4xl lg:text-[2.75rem];
+  }
+
+  .lead {
+    @apply text-base leading-relaxed sm:text-lg;
+    color: var(--text-muted);
+  }
+
+  .link-underline {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 after:ease-out-expo hover:after:scale-x-100;
+  }
+
+  .hairline {
+    @apply h-px w-full;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--border-strong),
+      transparent
+    );
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  }
+
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+
+  .pause-animation {
+    animation-play-state: paused;
+  }
+
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+
+  .bg-surface { background-color: var(--surface); }
+  .bg-surface-subtle { background-color: var(--surface-subtle); }
+}
